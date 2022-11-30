@@ -50,9 +50,9 @@ local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/EZPV/
 
 getgenv().settings = {}
 --Load Settings
-if isfile("plsdonatesettings.txt") then
+if isfile("ezpvsplsdonatesettings.txt") then
     local sl, er = pcall(function()
-        getgenv().settings = httpservice:JSONDecode(readfile('plsdonatesettings.txt'))
+        getgenv().settings = httpservice:JSONDecode(readfile('ezpvsplsdonatesettings.txt'))
     end)
     if er ~= nil then
         task.spawn(function()
@@ -62,7 +62,7 @@ if isfile("plsdonatesettings.txt") then
             task.wait(15)
             errMsg:Destroy()
         end)
-    delfile("plsdonatesettings.txt")
+    delfile("ezpvsplsdonatesettings.txt")
     end
 
 end
@@ -74,7 +74,7 @@ if #getgenv().settings ~= sNames then
             getgenv().settings[v] = sValues[i]
         end
     end
-    writefile('plsdonatesettings.txt', httpservice:JSONEncode(getgenv().settings))
+    writefile('ezpvsplsdonatesettings.txt', httpservice:JSONEncode(getgenv().settings))
 end
 
 --Save Settings
@@ -82,7 +82,7 @@ local settingsLock = true
 local function saveSettings()
     if settingsLock == false then
         print('Settings saved.')
-        writefile('plsdonatesettings.txt', httpservice:JSONEncode(getgenv().settings))
+        writefile('ezpvsplsdonatesettings.txt', httpservice:JSONEncode(getgenv().settings))
     end
 end
 local function serverHop()
@@ -171,7 +171,7 @@ local function update()
         local myBooth = Players.LocalPlayer.PlayerGui.MapUIContainer.MapUI.BoothUI:FindFirstChild(tostring("BoothUI".. unclaimed[1]))
         if myBooth.Sign.TextLabel.Text ~= boothText then
             if string.find(myBooth.Sign.TextLabel.Text, "# #") or string.find(myBooth.Sign.TextLabel.Text, "##") then
-                require(game.ReplicatedStorage.Remotes).Event("SetBoothText"):FireServer("your text here", "booth")
+                require(game.ReplicatedStorage.Remotes).Event("SetBoothText"):FireServer(".gg/ EZPV", "booth")
                 task.wait(3)
             end
             require(game.ReplicatedStorage.Remotes).Event("SetBoothText"):FireServer(boothText, "booth")
@@ -187,7 +187,7 @@ local function update()
 
         if currentSign ~= signText then
             if string.find(currentSign, "# #") or string.find(currentSign, "##") then
-                require(game.ReplicatedStorage.Remotes).Event("SetBoothText"):FireServer("your text here", "sign")
+                require(game.ReplicatedStorage.Remotes).Event("SetBoothText"):FireServer(".gg/ EZPV", "sign")
                 task.wait(3)
             end
             require(game.ReplicatedStorage.Remotes).Event("SetBoothText"):FireServer(signText, "sign")
@@ -226,7 +226,7 @@ local serverHopTab = Window:AddTab("Server")
 local otherTab = Window:AddTab("Other")
 
 --Booth Settings
-local textUpdateToggle = boothTab:AddSwitch("Text Update", function(bool)
+local textUpdateToggle = boothTab:AddSwitch("EZPV's Text Updater", function(bool)
     if settingsLock then
         return
     end
@@ -237,7 +237,7 @@ local textUpdateToggle = boothTab:AddSwitch("Text Update", function(bool)
     end
 end)
 textUpdateToggle:Set(getgenv().settings.textUpdateToggle)
-local textUpdateDelay = boothTab:AddSlider("Text Update Delay (S)", function(x) 
+local textUpdateDelay = boothTab:AddSlider("EZPV's Text Update Delay (S)", function(x) 
     if settingsLock then
        return 
     end
@@ -250,8 +250,8 @@ end,
 })
 
 textUpdateDelay:Set((getgenv().settings.textUpdateDelay / 120) * 100)
-boothTab:AddLabel("Text Color:")
-local hexBox = boothTab:AddTextBox("Hex Codes Only", function(text)
+boothTab:AddLabel("EZPV's Text Color:")
+local hexBox = boothTab:AddTextBox("EZPV says Hex Codes Only", function(text)
     if settingsLock then
         return
     end
@@ -268,8 +268,8 @@ end,
     ["clear"] = false
 })
 hexBox.Text = getgenv().settings.hexBox
-boothTab:AddLabel("Goal Increase:")
-local goalBox = boothTab:AddTextBox("Numbers Only", function(text)
+boothTab:AddLabel("EZPV's Goal Increase:")
+local goalBox = boothTab:AddTextBox("EZPV says Numbers Only", function(text)
     if tonumber(text) then
         getgenv().settings.goalBox = tonumber(text)
         saveSettings()
@@ -280,7 +280,7 @@ end,
     ["clear"] = false
 })
 goalBox.Text = getgenv().settings.goalBox
-boothTab:AddLabel("Custom Booth Text:")
+boothTab:AddLabel("EZPV's Custom Booth Text:")
 local customBoothText = boothTab:AddConsole({
 	["y"] = 50,
 	["source"] = "",
@@ -288,7 +288,7 @@ local customBoothText = boothTab:AddConsole({
 customBoothText:Set(getgenv().settings.customBoothText)
 boothTab:AddButton("Save", function()
     if #customBoothText:Get() > 221 then
-        return customBoothText:Set("Nigga r u dumb i said 221 characters")
+        return customBoothText:Set("EZPV says 221 Character Limit")
     end
     if settingsLock then
         return
@@ -299,8 +299,8 @@ boothTab:AddButton("Save", function()
         update()
     end
 end)
-local helpLabel = boothTab:AddLabel("$C = Current, $G = Goal, 221 Character Limit | Subscribe to EZPV on YT|youtube.com/@EZPV|discord.gg/EZPV")
-helpLabel.TextSize = 11
+local helpLabel = boothTab:AddLabel("$C = Current, $G = Goal, 221 Character Limit")
+helpLabel.TextSize = 9
 helpLabel.TextXAlignment = Enum.TextXAlignment.Center
 --Sign Settings
 pcall(function()
@@ -309,7 +309,7 @@ pcall(function()
     end
 end)
 if signPass then
-    local signToggle = signTab:AddSwitch("Equip Sign", function(bool)
+    local signToggle = signTab:AddSwitch("EZPV's Equip Sign", function(bool)
         getgenv().settings.signToggle = bool
         saveSettings()
         if bool then
@@ -319,7 +319,7 @@ if signPass then
         end
     end)
     signToggle:Set(getgenv().settings.signToggle)
-    local signUpdateToggle = signTab:AddSwitch("Text Update", function(bool)
+    local signUpdateToggle = signTab:AddSwitch("EZPV's Text Update", function(bool)
         if settingsLock then
             return
         end
@@ -330,8 +330,8 @@ if signPass then
         end
     end)
     signUpdateToggle:Set(getgenv().settings.signUpdateToggle)
-    signTab:AddLabel("Text Color:")
-    local signHexBox = signTab:AddTextBox("Hex Codes Only", function(text)
+    signTab:AddLabel("EZPV's Text Color:")
+    local signHexBox = signTab:AddTextBox("EZPV says Hex Codes Only", function(text)
         if settingsLock then
             return
         end
@@ -350,7 +350,7 @@ if signPass then
         ["clear"] = false
     })
 signHexBox.Text = getgenv().settings.signHexBox
-    signTab:AddLabel("Sign Text:")
+    signTab:AddLabel("EZPV's Sign Text:")
     local signText = signTab:AddConsole({
 	    ["y"] = 50,
 	    ["source"] = "",
@@ -358,7 +358,7 @@ signHexBox.Text = getgenv().settings.signHexBox
     signText:Set(getgenv().settings.signText)
     signTab:AddButton("Save", function()
         if #signText:Get() > 221 then
-            return signText:Set("221 Character Limit")
+            return signText:Set("EZPV says 221 Character Limit")
         end
         if settingsLock then
             return
@@ -374,16 +374,16 @@ signHexBox.Text = getgenv().settings.signHexBox
     signHelpLabel.TextXAlignment = Enum.TextXAlignment.Center
     
 else
-    signTab:AddLabel('Requires Sign Gamepass')
+    signTab:AddLabel('EZPV says this Requires Sign Gamepass')
 end
 
 --Chat Settings
-local autoThanks = chatTab:AddSwitch("Auto Thank You", function(bool)
+local autoThanks = chatTab:AddSwitch("EZPV's Auto Thank You", function(bool)
     getgenv().settings.autoThanks = bool
     saveSettings()
 end)
 autoThanks:Set(getgenv().settings.autoThanks)
-local autoBeg = chatTab:AddSwitch("Auto Beg", function(bool)
+local autoBeg = chatTab:AddSwitch("EZPV's Auto Beg", function(bool)
     if settingsLock then
         return
     end
@@ -396,7 +396,7 @@ local autoBeg = chatTab:AddSwitch("Auto Beg", function(bool)
     end
 end)
 autoBeg:Set(getgenv().settings.autoBeg)
-local thanksDelay = chatTab:AddSlider("Thanks Delay (S)", function(x) 
+local thanksDelay = chatTab:AddSlider("EZPV's Thanks Delay (S)", function(x) 
     if settingsLock then
        return 
     end
@@ -408,7 +408,7 @@ end,
     ["max"] = 120
 })
 thanksDelay:Set((getgenv().settings.thanksDelay / 120) * 100)
-local begDelay = chatTab:AddSlider("Begging Delay (S)", function(x) 
+local begDelay = chatTab:AddSlider("EZPV's Begging Delay (S)", function(x) 
     if settingsLock then
        return 
     end
@@ -420,7 +420,7 @@ end,
     ["max"] = 300
 })
 begDelay:Set((getgenv().settings.begDelay / 300) * 100)
-local tym = chatTab:AddFolder("Thank You Messages:")
+local tym = chatTab:AddFolder("EZPV's Thank You Messages:")
 local thanksMessage = tym:AddConsole({
 	["y"] = 170,
     ["source"] = "",
@@ -438,7 +438,7 @@ tym:AddButton("Save", function()
     getgenv().settings.thanksMessage = split
     saveSettings()
 end)
-local bm = chatTab:AddFolder("Begging Messages:")
+local bm = chatTab:AddFolder("EZPV's Begging Messages:")
 local begMessage = bm:AddConsole({
 	["y"] = 170,
     ["source"] = "",
@@ -459,7 +459,7 @@ end)
 
 
 --Webhook Settings
-local webhookToggle = webhookTab:AddSwitch("Discord Webhook Notifications", function(bool)
+local webhookToggle = webhookTab:AddSwitch("EZPV's Discord Webhook Notifications", function(bool)
     getgenv().settings.webhookToggle = bool
     saveSettings()
 end)
@@ -477,7 +477,7 @@ webhookBox.Text = getgenv().settings.webhookBox
 webhookTab:AddLabel('Press Enter to Save')
 webhookTab:AddButton("Test", function()
     if getgenv().settings.webhookBox then
-        webhook("**TEST** | https://discord.gg/ezpv")
+        webhook("**TEST** Sent from PLS DONATE!! | https://discord.gg/ezpv")
     end
 end)
 
@@ -488,7 +488,7 @@ pcall(function()
         vcEnabled = true
     end
 end)
-local serverHopToggle = serverHopTab:AddSwitch("Auto Server Hop", function(bool)
+local serverHopToggle = serverHopTab:AddSwitch("EZPV's Auto Server Hop", function(bool)
     if settingsLock then
         return
     end
@@ -511,7 +511,7 @@ end,
 serverHopDelay:Set((getgenv().settings.serverHopDelay / 120) * 100)
 serverHopTab:AddLabel("Timer resets after donation")
 if vcEnabled then
-    local vcToggle = serverHopTab:AddSwitch("Voice Chat Servers", function(bool)
+    local vcToggle = serverHopTab:AddSwitch("EZPV's Voice Chat Servers", function(bool)
         if settingsLock then
             return
         end
@@ -524,7 +524,7 @@ serverHopTab:AddButton("Server Hop", function()
     serverHop()
 end)
 --Other tab
-otherTab:AddLabel('Dance:')
+otherTab:AddLabel('EZPVs Dances:')
 local danceDropdown = otherTab:AddDropdown("[ ".. getgenv().settings.danceChoice.. " ]", function(object)
     if settingsLock then
         return
@@ -533,17 +533,17 @@ local danceDropdown = otherTab:AddDropdown("[ ".. getgenv().settings.danceChoice
     saveSettings()
     if object == "Disabled" then
         Players:Chat("/e wave")
-    elseif object == "Monkey" then
-        Players:Chat("/e dance Monkey")
+    elseif object == "1" then
+        Players:Chat("/e dance")
     else
         Players:Chat("/e dance".. object)
     end
 end)
 danceDropdown:Add("Disabled")
-danceDropdown:Add("Monkey")
-danceDropdown:Add("Sidekicks - George Ezra")
-danceDropdown:Add("Side to Side")
-local render = otherTab:AddSwitch("Disable Rendering", function(bool)
+danceDropdown:Add("1")
+danceDropdown:Add("2")
+danceDropdown:Add("3")
+local render = otherTab:AddSwitch("EZPV's Disable Rendering", function(bool)
     getgenv().settings.render = bool
     saveSettings()
     if bool then
@@ -554,7 +554,7 @@ local render = otherTab:AddSwitch("Disable Rendering", function(bool)
 end)
 render:Set(getgenv().settings.render)
 if setfpscap and type(setfpscap) == "function" then
-    local fpsLimit = otherTab:AddSlider("FPS Limit", function(x)
+    local fpsLimit = otherTab:AddSlider("EZPV's FPS Limit", function(x)
         if settingsLock then
             return 
         end
@@ -632,9 +632,9 @@ Controls:Enable()
 noclipper:Disconnect()
 Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(Players.LocalPlayer.Character.HumanoidRootPart.Position, Vector3.new(40, 14, 101)))
 require(game.ReplicatedStorage.Remotes).Event("RefreshItems"):InvokeServer()
-if getgenv().settings.danceChoice == "Monkey" then
+if getgenv().settings.danceChoice == "1" then
     task.wait(.25)
-    Players:Chat("/e dance Monkey")
+    Players:Chat("/e dance")
 else
     task.wait(.25)
     Players:Chat("/e dance".. getgenv().settings.danceChoice)
@@ -653,7 +653,7 @@ Players.LocalPlayer.leaderstats.Raised.Changed:Connect(function()
         if string.find(logs[#logs].message, Players.LocalPlayer.DisplayName) then
             webhook(tostring(logs[#logs].message.. " (Total: ".. Players.LocalPlayer.leaderstats.Raised.value.. ")"))
         else
-            webhook(tostring(" :robux: Somebody Simped with ".. Players.LocalPlayer.leaderstats.Raised.value - RaisedC.. " Robux to ".. Players.LocalPlayer.DisplayName.. " (Total: " .. Players.LocalPlayer.leaderstats.Raised.value.. ")"))
+            webhook(tostring("💰 Somebody simped ".. Players.LocalPlayer.leaderstats.Raised.value - RaisedC.. " Robux to ".. Players.LocalPlayer.DisplayName.. " (Total: " .. Players.LocalPlayer.leaderstats.Raised.value.. ")"))
         end
     end
     RaisedC = Players.LocalPlayer.leaderstats.Raised.value
@@ -668,7 +668,7 @@ Players.LocalPlayer.leaderstats.Raised.Changed:Connect(function()
 end)
 update()
 if game:GetService("CoreGui").imgui.Windows.Window.Title.Text == "Loading EZPV's Script..." then
-    game:GetService("CoreGui").imgui.Windows.Window.Title.Text = "PLS DONATE - made by: EZPV|.gg/EZPV"
+    game:GetService("CoreGui").imgui.Windows.Window.Title.Text = "PLS DONATE - Made By: EZPV | .gg/EZPV"
 end
 while task.wait(getgenv().settings.serverHopDelay * 60) do
     if not hopTimer then
