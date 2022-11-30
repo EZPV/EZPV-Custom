@@ -50,9 +50,9 @@ local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/EZPV/
 
 getgenv().settings = {}
 --Load Settings
-if isfile("ezpvsplsdonatesettings.txt") then
+if isfile("customezpvplsdonatesettings.txt") then
     local sl, er = pcall(function()
-        getgenv().settings = httpservice:JSONDecode(readfile('ezpvsplsdonatesettings.txt'))
+        getgenv().settings = httpservice:JSONDecode(readfile('customezpvplsdonatesettings.txt'))
     end)
     if er ~= nil then
         task.spawn(function()
@@ -62,7 +62,7 @@ if isfile("ezpvsplsdonatesettings.txt") then
             task.wait(15)
             errMsg:Destroy()
         end)
-    delfile("ezpvsplsdonatesettings.txt")
+    delfile("customezpvplsdonatesettings.txt")
     end
 
 end
@@ -74,7 +74,7 @@ if #getgenv().settings ~= sNames then
             getgenv().settings[v] = sValues[i]
         end
     end
-    writefile('ezpvsplsdonatesettings.txt', httpservice:JSONEncode(getgenv().settings))
+    writefile('customezpvplsdonatesettings.txt', httpservice:JSONEncode(getgenv().settings))
 end
 
 --Save Settings
@@ -82,7 +82,7 @@ local settingsLock = true
 local function saveSettings()
     if settingsLock == false then
         print('Settings saved.')
-        writefile('ezpvsplsdonatesettings.txt', httpservice:JSONEncode(getgenv().settings))
+        writefile('customezpvplsdonatesettings.txt', httpservice:JSONEncode(getgenv().settings))
     end
 end
 local function serverHop()
