@@ -578,13 +578,13 @@ if setfpscap and type(setfpscap) == "function" then
     fpsLimit:Set((getgenv().settings.fpsLimit / 60) * 100)
     setfpscap(getgenv().settings.fpsLimit)
 end
-otherTab:Toggle("Anonymous Mode", "Hides your donated amount on the leaderboard", getgenv().settings.anonymous, function(t)
+local render = otherTab:AddSwitch("EZPV's Anonymous Mode", function(x)
     local anToggled = require(game.ReplicatedStorage.Settings):get().Anonymous
-    if t and not anToggled then
+    if x and not anToggled then
         require(game.ReplicatedStorage.Remotes).Event("SetDonatedVisibility"):FireServer(false)
     end
     if settingsLock then return end
-    getgenv().settings.anonymous = t
+    getgenv().settings.anonymous = x
     saveSettings()
 end)
 
