@@ -13,7 +13,7 @@ if getgenv().loaded then
 else
     getgenv().loaded = true
 end
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EZPV/EZPV-Custom/main/part%201"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EZPV/EZPV-Custom/test-branch/part%201"))()
 task.wait(1)
 --Anti-AFK
 local Players = game:GetService("Players")
@@ -45,8 +45,8 @@ local booths = { ["1"] = "72, 3, 36", ["2"] = "83, 3, 161", ["3"] = "11, 3, 36",
 local queueonteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
 local httprequest = (syn and syn.request) or http and http.request or http_request or (fluxus and fluxus.request) or request
 local httpservice = game:GetService('HttpService')
-queueonteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/EZPV/EZPV-Custom/main/Core'))()")
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/EZPV/EZPV-Custom/main/part%202"))()
+queueonteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/EZPV/EZPV-Custom/test-branch/Core'))()")
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/EZPV/EZPV-Custom/test-branch/part%202"))()
 
 getgenv().settings = {}
 --Load Settings
