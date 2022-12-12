@@ -536,7 +536,7 @@ local danceDropdown = otherTab:AddDropdown("[ ".. getgenv().settings.danceChoice
     elseif object == "Monkey" then
         Players:Chat("/e Monkey")
     else
-        Players:Chat("/e ".. t)
+        Players:Chat("/e ".. object)
 end)
 danceDropdown:Add("Disabled")
 danceDropdown:Add("Monkey")
