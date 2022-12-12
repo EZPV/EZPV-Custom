@@ -533,8 +533,6 @@ local danceDropdown = otherTab:AddDropdown("[ ".. getgenv().settings.danceChoice
     saveSettings()
     if object == "Disabled" then
         Players:Chat("/e wave")
-    elseif object == "/e " then
-        Players:Chat("/e monkey")
     else
         Players:Chat("/e ".. object)
     end
@@ -543,6 +541,7 @@ danceDropdown:Add("Disabled")
 danceDropdown:Add("Monkey")
 danceDropdown:Add("Side to side")
 danceDropdown:Add("Sidekicks - George Ezra")
+--render settings
 local render = otherTab:AddSwitch("EZPV's Disable Rendering", function(bool)
     getgenv().settings.render = bool
     saveSettings()
