@@ -523,6 +523,16 @@ end
 serverHopTab:AddButton("Server Hop", function()
     serverHop()
 end)
+local render = otherTab:AddSwitch("EZPV's Staff Join Server Hop", function(x)
+    getgenv().settings.staffHop = x
+    saveSettings()
+    if x then
+        local function playerJoin(player)
+    if not getgenv().settings.staffHop then return end
+    if player:GetRankInGroup(12121240) >= 254 then
+        serverHop()
+    end
+end
 --Other tab
 otherTab:AddLabel('EZPVs Dances:')
 local danceDropdown = otherTab:AddDropdown("[ ".. getgenv().settings.danceChoice.. " ]", function(object)
