@@ -86,6 +86,9 @@ local function saveSettings()
     end
 end
 local function serverHop()
+if getgenv().settings.webhookshop then
+        webhook(tostring("💫 ["..Players.LocalPlayer.DisplayName.."] Is attempting to server hop"))
+    end
     local gameId = "8737602449"
     if vcEnabled and getgenv().settings.vcServer then
         gameId = "8943844393"
@@ -470,7 +473,13 @@ local webhookToggle = webhookTab:AddSwitch("EZPV's Discord Webhook Notifications
     getgenv().settings.webhookToggle = bool
     saveSettings()
 end)
-webhookToggle:Set(getgenv().settings.webhookToggle)
+webhookToggle:Set(getgenv().settings.webhookToggle
+
+local webhookshop = webhookTab:AddSwitch("EZPV's Server Hop Notifications", function(x)
+    getgenv().settings.webhookToggle = x
+    saveSettings()
+end)
+webhookToggle:Set(getgenv().settings.webhookToggle
 local webhookBox = webhookTab:AddTextBox("Webhook URL", function(text)
     if string.find(text, "https://discord.com/api/webhooks/") then
         getgenv().settings.webhookBox = text;
@@ -487,7 +496,6 @@ webhookTab:AddButton("Test", function()
         webhook("**TEST** Sent from PLS DONATE!! | https://discord.gg/ezpv")
     end
 end)
-
 
 --Server Hop Settings
 pcall(function()
