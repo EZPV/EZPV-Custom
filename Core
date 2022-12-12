@@ -66,8 +66,8 @@ if isfile("monkeynutsucks.txt") then
     end
 
 end
-local sNames = {"textUpdateToggle", "textUpdateDelay", "serverHopToggle", "serverHopDelay", "hexBox", "goalBox", "webhookToggle", "webhookBox", "danceChoice", "thanksMessage", "signToggle", "customBoothText", "signUpdateToggle", "signText", "signHexBox", "autoThanks", "autoBeg", "begMessage", "begDelay", "fpsLimit", "render", "thanksDelay", "vcServer", "webhookshop", "anonymous", "staffHop", "censorHop", "music"}
-local sValues = {true, 30, true, 30, "#32CD32", 5, false, "", "Disabled", {"Thank you", "Thanks!", "ty :)", "tysm!"}, false, "GOAL: $C / $G", false, "your text here", "#ffffff", true, false, {"Please donate", "I'm so close to my goal!", "donate to me", "please"}, 300, 60, false, 3, false, false, false, true, false}
+local sNames = {"textUpdateToggle", "textUpdateDelay", "serverHopToggle", "serverHopDelay", "hexBox", "goalBox", "webhookToggle", "webhookBox", "danceChoice", "thanksMessage", "signToggle", "customBoothText", "signUpdateToggle", "signText", "signHexBox", "autoThanks", "autoBeg", "begMessage", "staffHop", "music", "begDelay", "fpsLimit", "anonymous", "render", "thanksDelay", "vcServer"}
+local sValues = {true, 30, true, 30, "#32CD32", 5, false, "", "Disabled", {"Thank you", "Thanks!", "ty :)", "tysm!"}, false, "GOAL: $C / $G", false, "your text here", "#ffffff", true, false, {"Please donate", "I'm so close to my goal!", "donate to me", "please"}, 300, 60, false, 3, false}
 if #getgenv().settings ~= sNames then
     for i, v in ipairs(sNames) do
         if getgenv().settings[v] == nil then
@@ -86,9 +86,6 @@ local function saveSettings()
     end
 end
 local function serverHop()
-if getgenv().settings.webhookshop then
-        webhook(tostring("💫 ["..Players.LocalPlayer.DisplayName.."] Is attempting to server hop"))
-    end
     local gameId = "8737602449"
     if vcEnabled and getgenv().settings.vcServer then
         gameId = "8943844393"
@@ -473,13 +470,7 @@ local webhookToggle = webhookTab:AddSwitch("EZPV's Discord Webhook Notifications
     getgenv().settings.webhookToggle = bool
     saveSettings()
 end)
-webhookToggle:Set(getgenv().settings.webhookToggle
-
-local webhookshop = webhookTab:AddSwitch("EZPV's Server Hop Notifications", function(x)
-    getgenv().settings.webhookshop = x
-    saveSettings()
-end)
-webhookToggle:Set(getgenv().settings.webhookToggle
+webhookToggle:Set(getgenv().settings.webhookToggle)
 local webhookBox = webhookTab:AddTextBox("Webhook URL", function(text)
     if string.find(text, "https://discord.com/api/webhooks/") then
         getgenv().settings.webhookBox = text;
@@ -496,6 +487,7 @@ webhookTab:AddButton("Test", function()
         webhook("**TEST** Sent from PLS DONATE!! | https://discord.gg/ezpv")
     end
 end)
+
 
 --Server Hop Settings
 pcall(function()
