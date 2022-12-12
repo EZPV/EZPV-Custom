@@ -646,9 +646,6 @@ require(game.ReplicatedStorage.Remotes).Event("RefreshItems"):InvokeServer()
 if getgenv().settings.danceChoice == "Monkey" then
     task.wait(1)
     Players:Chat("/e Monkey")
-else
-    task.wait(.25)
-    Players:Chat("/e ".. getgenv().settings.danceChoice)
 end
 
 if getgenv().settings.autoBeg then
