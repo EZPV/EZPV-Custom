@@ -66,7 +66,7 @@ if isfile("monkeynutsucks.txt") then
     end
 
 end
-local sNames = {"textUpdateToggle", "textUpdateDelay", "serverHopToggle", "serverHopDelay", "hexBox", "goalBox", "webhookToggle", "webhookBox", "danceChoice", "thanksMessage", "signToggle", "customBoothText", "signUpdateToggle", "signText", "signHexBox", "autoThanks", "autoBeg", "begMessage", "Music", "begDelay", "fpsLimit", "anonymous", "render", "thanksDelay", "vcServer"}
+local sNames = {"textUpdateToggle", "textUpdateDelay", "serverHopToggle", "serverHopDelay", "hexBox", "goalBox", "webhookToggle", "webhookBox", "danceChoice", "thanksMessage", "signToggle", "customBoothText", "signUpdateToggle", "signText", "signHexBox", "autoThanks", "autoBeg", "begMessage", "music", "begDelay", "fpsLimit", "anonymous", "render", "thanksDelay", "vcServer"}
 local sValues = {true, 30, true, 30, "#32CD32", 5, false, "", "Disabled", {"Thank you", "Thanks!", "ty :)", "tysm!"}, false, "GOAL: $C / $G", false, "your text here", "#ffffff", true, false, {"Please donate", "I'm so close to my goal!", "donate to me", "please"}, 300, 60, false, 3, false}
 if #getgenv().settings ~= sNames then
     for i, v in ipairs(sNames) do
@@ -588,9 +588,9 @@ local render = otherTab:AddSwitch("EZPV's Anonymous Mode", function(x)
     saveSettings()
 end)
 local render = otherTab:AddSwitch("EZPV's Mute Music", function(x)
-    local anToggled = require(game.ReplicatedStorage.Settings):get().Music
+    local anToggled = require(game.ReplicatedStorage.Settings):get().music
     if x and not anToggled then
-        require(game.ReplicatedStorage.Remotes).Event("Music"):FireServer(false)
+        require(game.ReplicatedStorage.Remotes).Event("Sound"):FireServer(false)
     end
     if settingsLock then return end
     getgenv().settings.anonymous = x
