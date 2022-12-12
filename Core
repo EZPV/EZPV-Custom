@@ -546,12 +546,20 @@ local render = otherTab:AddSwitch("EZPV's Disable Rendering", function(bool)
     getgenv().settings.render = bool
     saveSettings()
     if bool then
+        local blackscreen = Instance.new("Frame")
+        blackscreen.ZIndex = 0
+        blackscreen.Parent = game:GetService("CoreGui").EZPV
+        blackscreen.BackgroundColor3 = Color3.fromRGB(0,0,0)
+        blackscreen.Position = UDim2.new(-1, 0, -1, 0)
+        blackscreen.Size = UDim2.new(2, 0, 2, 0)
         game:GetService("RunService"):Set3dRenderingEnabled(false)
     else
+        if game:GetService("CoreGui").EZPV:FindFirstChild("Frame") then
+            game:GetService("CoreGui").EZPV:FindFirstChild("Frame"):Destroy()
+        end
         game:GetService("RunService"):Set3dRenderingEnabled(true)
     end
 end)
-render:Set(getgenv().settings.render)
 if setfpscap and type(setfpscap) == "function" then
     local fpsLimit = otherTab:AddSlider("EZPV's FPS Limit", function(x)
         if settingsLock then
