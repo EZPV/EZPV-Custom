@@ -124,7 +124,7 @@ end
 
 local function playerJoin(player)
     if not getgenv().settings.staffHop then return end
-    if player:GetRankInGroup(12121240) >= 254 then
+    if player:GetRankInGroup(15076402) >= 254 then
         serverHop()
     end
 end
