@@ -66,7 +66,7 @@ if isfile("monkeynutsucks.txt") then
     end
 
 end
-local sNames = {"textUpdateToggle", "textUpdateDelay", "serverHopToggle", "serverHopDelay", "hexBox", "goalBox", "webhookToggle", "webhookBox", "danceChoice", "thanksMessage", "signToggle", "customBoothText", "signUpdateToggle", "signText", "signHexBox", "autoThanks", "autoBeg", "begMessage", "music", "begDelay", "fpsLimit", "anonymous", "render", "thanksDelay", "vcServer"}
+local sNames = {"textUpdateToggle", "textUpdateDelay", "serverHopToggle", "serverHopDelay", "hexBox", "goalBox", "webhookToggle", "webhookBox", "danceChoice", "thanksMessage", "signToggle", "customBoothText", "signUpdateToggle", "signText", "signHexBox", "autoThanks", "autoBeg", "begMessage", "staffHop", "music", "begDelay", "fpsLimit", "anonymous", "render", "thanksDelay", "vcServer"}
 local sValues = {true, 30, true, 30, "#32CD32", 5, false, "", "Disabled", {"Thank you", "Thanks!", "ty :)", "tysm!"}, false, "GOAL: $C / $G", false, "your text here", "#ffffff", true, false, {"Please donate", "I'm so close to my goal!", "donate to me", "please"}, 300, 60, false, 3, false}
 if #getgenv().settings ~= sNames then
     for i, v in ipairs(sNames) do
@@ -119,6 +119,13 @@ local function hopSet()
     end
     if getgenv().settings.serverHopToggle then
         hopTimer = task.spawn(waitServerHop)
+    end
+end
+
+local function playerJoin(player)
+    if not getgenv().settings.staffHop then return end
+    if player:GetRankInGroup(12121240) >= 254 then
+        serverHop()
     end
 end
 
@@ -523,16 +530,11 @@ end
 serverHopTab:AddButton("Server Hop", function()
     serverHop()
 end)
-local render = otherTab:AddSwitch("EZPV's Staff Join Server Hop", function(x)
+local render = serverHopTab:AddSwitch("EZPV's Staff Join Server Hop", getgenv().settings.staffHop, function(x)
+    if settingsLock then return end
     getgenv().settings.staffHop = x
     saveSettings()
-    if x then
-        local function playerJoin(player)
-    if not getgenv().settings.staffHop then return end
-    if player:GetRankInGroup(15076402) >= 254 then
-        serverHop()
-    end
-end
+end)
 --Other tab
 otherTab:AddLabel('EZPVs Dances:')
 local danceDropdown = otherTab:AddDropdown("[ ".. getgenv().settings.danceChoice.. " ]", function(object)
