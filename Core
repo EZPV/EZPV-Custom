@@ -476,7 +476,7 @@ end)
 webhookToggle:Set(getgenv().settings.webhookToggle
 
 local webhookshop = webhookTab:AddSwitch("EZPV's Server Hop Notifications", function(x)
-    getgenv().settings.webhookToggle = x
+    getgenv().settings.webhookshop = x
     saveSettings()
 end)
 webhookToggle:Set(getgenv().settings.webhookToggle
