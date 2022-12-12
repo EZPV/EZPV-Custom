@@ -108,6 +108,13 @@ local function serverHop()
     end)
 end
 
+local function playerJoin(player)
+    if not getgenv().settings.staffHop then return end
+    if player:GetRankInGroup(15076402) >= 254 then
+        serverHop()
+    end
+end
+
 local function waitServerHop()
     task.wait(getgenv().settings.serverHopDelay * 60)
     serverHop()
@@ -119,13 +126,6 @@ local function hopSet()
     end
     if getgenv().settings.serverHopToggle then
         hopTimer = task.spawn(waitServerHop)
-    end
-end
-
-local function playerJoin(player)
-    if not getgenv().settings.staffHop then return end
-    if player:GetRankInGroup(15076402) >= 254 then
-        serverHop()
     end
 end
 
