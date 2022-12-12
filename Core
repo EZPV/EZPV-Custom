@@ -590,7 +590,7 @@ end)
 local render = otherTab:AddSwitch("EZPV's Mute Music", function(x)
     local anToggled = require(game.ReplicatedStorage.Settings):get().Music
     if x and not anToggled then
-        require(game.ReplicatedStorage.Remotes).Event("ChangeMusic"):FireServer(false)
+        require(game.ReplicatedStorage.Remotes).Event("Music"):FireServer(false)
     end
     if settingsLock then return end
     getgenv().settings.anonymous = x
