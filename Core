@@ -533,14 +533,14 @@ local danceDropdown = otherTab:AddDropdown("[ ".. getgenv().settings.danceChoice
     saveSettings()
     if object == "Disabled" then
         Players:Chat("/e wave")
-    elseif object == "1" then
+    elseif object == "Monkey" then
         Players:Chat("/e Monkey")
     else
         Players:Chat("/e ".. object)
     end
 end)
 danceDropdown:Add("Disabled")
-danceDropdown:Add("1")
+danceDropdown:Add("Monkey")
 danceDropdown:Add("Side to side")
 danceDropdown:Add("Sidekicks - George Ezra")
 --render settings
@@ -640,10 +640,10 @@ hopSet()
 Controls:Enable()
 noclipper:Disconnect()
 require(game.ReplicatedStorage.Remotes).Event("RefreshItems"):InvokeServer()
-task.wait(1)
+task.wait(.25)
 Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(Players.LocalPlayer.Character.HumanoidRootPart.Position, Vector3.new(40, 14, 101)))
 require(game.ReplicatedStorage.Remotes).Event("RefreshItems"):InvokeServer()
-if getgenv().settings.danceChoice == "1" then
+if getgenv().settings.danceChoice == "Monkey" then
     task.wait(1)
     Players:Chat("/e Monkey")
 else
