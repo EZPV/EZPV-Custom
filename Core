@@ -108,13 +108,6 @@ local function serverHop()
     end)
 end
 
-local function playerJoin(player)
-    if not getgenv().settings.staffHop then return end
-    if player:GetRankInGroup(15076402) >= 254 then
-        serverHop()
-    end
-end
-
 local function waitServerHop()
     task.wait(getgenv().settings.serverHopDelay * 60)
     serverHop()
@@ -530,11 +523,6 @@ end
 serverHopTab:AddButton("Server Hop", function()
     serverHop()
 end)
-local render = serverHopTab:AddSwitch("EZPV's Staff Join Server Hop", getgenv().settings.staffHop, function(x)
-    if settingsLock then return end
-    getgenv().settings.staffHop = x
-    saveSettings()
-end)
 --Other tab
 otherTab:AddLabel('EZPVs Dances:')
 local danceDropdown = otherTab:AddDropdown("[ ".. getgenv().settings.danceChoice.. " ]", function(object)
@@ -599,15 +587,6 @@ local render = otherTab:AddSwitch("EZPV's Anonymous Mode", function(x)
     getgenv().settings.anonymous = x
     saveSettings()
 end)
-local render = otherTab:AddSwitch("EZPV's Mute Music", function(x)
-    local anToggled = require(game.ReplicatedStorage.Settings):get().music
-    if x and not anToggled then
-        require(game.ReplicatedStorage.Remotes).Event("Sound"):FireServer(false)
-    end
-    if settingsLock then return end
-    getgenv().settings.anonymous = x
-    saveSettings()
-end)
 
 boothTab:Show()
 library:FormatWindows()
@@ -628,6 +607,7 @@ local claimCount = #unclaimed
 --Walks to booth
 local Controls = require(Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule")):GetControls()
 Controls:Disable()
+Controls:Enable()
 Players.LocalPlayer.Character.Humanoid:MoveTo(Vector3.new(booths[tostring(unclaimed[1])]:match("(.+), (.+), (.+)")))
 local atBooth = false
 local function noclip()
@@ -667,7 +647,6 @@ while not pcall(boothclaim) do
 end
 
 hopSet()
-Controls:Enable()
 noclipper:Disconnect()
 require(game.ReplicatedStorage.Remotes).Event("RefreshItems"):InvokeServer()
 task.wait(.25)
