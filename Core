@@ -606,8 +606,7 @@ end
 local claimCount = #unclaimed
 --Walks to booth
 local Controls = require(Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule")):GetControls()
-Controls:Disable()
-Controls:Enable()
+--here
 Players.LocalPlayer.Character.Humanoid:MoveTo(Vector3.new(booths[tostring(unclaimed[1])]:match("(.+), (.+), (.+)")))
 local atBooth = false
 local function noclip()
@@ -647,6 +646,7 @@ while not pcall(boothclaim) do
 end
 
 hopSet()
+--here
 noclipper:Disconnect()
 require(game.ReplicatedStorage.Remotes).Event("RefreshItems"):InvokeServer()
 task.wait(.25)
