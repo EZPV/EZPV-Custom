@@ -631,12 +631,6 @@ game:GetService('VirtualInputManager'):SendKeyEvent(false, "LeftControl", false,
 --Claim booth function
 local function boothclaim()
     require(game.ReplicatedStorage.Remotes).Event("ClaimBooth"):InvokeServer(unclaimed[1])
-    if not string.find(Players.LocalPlayer.PlayerGui.MapUIContainer.MapUI.BoothUI:FindFirstChild(tostring("BoothUI".. unclaimed[1])).Details.Owner.Text, Players.LocalPlayer.DisplayName) then
-        task.wait(1)
-        if not string.find(Players.LocalPlayer.PlayerGui.MapUIContainer.MapUI.BoothUI:FindFirstChild(tostring("BoothUI".. unclaimed[1])).Details.Owner.Text, Players.LocalPlayer.DisplayName) then
-            error()
-        end
-    end
 end
 --Checks if booth claim fails
 while not pcall(boothclaim) do
