@@ -651,14 +651,14 @@ local function walkToBooth()
     local Controls = require(Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule")):GetControls()
     Controls:Disable()
     local atBooth = false
-    while not atBooth do
-    task.wait(.1)
-    if Players.LocalPlayer.Character.Humanoid:GetState() == Enum.HumanoidStateType.Seated then
-        Players.LocalPlayer.Character.Humanoid.Jump = true
-    end)
     Players.LocalPlayer.Character.Humanoid:MoveTo(boothPos.Position)
     Players.LocalPlayer.Character.Humanoid.MoveToFinished:Connect(function(reached)
         atBooth = true
+    end)
+        while atBooth = false
+    task.wait(.1)
+    if Players.LocalPlayer.Character.Humanoid:GetState() == Enum.HumanoidStateType.Seated then
+        Players.LocalPlayer.Character.Humanoid.Jump = true
     end)
     repeat task.wait() until atBooth
     Controls:Enable()
