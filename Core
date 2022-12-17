@@ -545,8 +545,12 @@ danceDropdown:Add("Side to side")
 danceDropdown:Add("Sidekicks - George Ezra")
 
 otherTab:AddLabel('EZPVs Booth POS:')
-local boothDropdown = otherTab:AddDropdown("Standing Position", false, function(t)
-    if settingsLock then return end
+local boothDropdown = otherTab:AddDropdown("[ ".. getgenv().settings.danceChoice.. " ]", function(t)
+    if settingsLock then
+        return
+    end
+    getgenv().settings.danceChoice = t
+    saveSettings()
     if t == "Front" then
         getgenv().settings.boothPosition = 3
     elseif t == "Left" then
@@ -556,7 +560,6 @@ local boothDropdown = otherTab:AddDropdown("Standing Position", false, function(
     else
         getgenv().settings.boothPosition = -5.5
     end
-    saveSettings()
 end)
 boothDropdown:Add("Front")
 boothDropdown:Add("Left")
