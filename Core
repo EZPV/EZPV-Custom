@@ -589,7 +589,7 @@ local render = otherTab:AddSwitch("EZPV's Anonymous Mode", function(x)
 end)
 
 otherTab:AddLabel('EZPVs Booth POS:')
-local boothDropdown = otherTab:AddDropdown("Standing Position", {"Front", "Left", "Right", "Behind"}, false, function(t)
+local boothDropdown = otherTab:AddDropdown("[ ".. getgenv().settings.boothPosition.. " ]", function(t)
     if settingsLock then return end
     if t == "Front" then
         getgenv().settings.boothPosition = 3
@@ -602,6 +602,10 @@ local boothDropdown = otherTab:AddDropdown("Standing Position", {"Front", "Left"
     end
     saveSettings()
 end)
+boothDropdown:Add("Front")
+boothDropdown:Add("Left")
+boothDropdown:Add("Right")
+boothDropdown:Add("Behind")
 
 boothTab:Show()
 library:FormatWindows()
