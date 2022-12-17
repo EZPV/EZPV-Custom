@@ -544,28 +544,6 @@ danceDropdown:Add("Monkey")
 danceDropdown:Add("Side to side")
 danceDropdown:Add("Sidekicks - George Ezra")
 
-otherTab:AddLabel('EZPVs Booth POS:')
-local boothDropdown = otherTab:AddDropdown("[ ".. getgenv().settings.danceChoice.. " ]", function(t)
-    if settingsLock then
-        return
-    end
-    getgenv().settings.danceChoice = t
-    saveSettings()
-    if t == "Front" then
-        getgenv().settings.boothPosition = 3
-    elseif t == "Left" then
-        getgenv().settings.boothPosition = -6
-    elseif t == "Right" then
-        getgenv().settings.boothPosition = 6
-    else
-        getgenv().settings.boothPosition = -5.5
-    end
-end)
-boothDropdown:Add("Front")
-boothDropdown:Add("Left")
-boothDropdown:Add("Right")
-boothDropdown:Add("Behind")
-
 --render settings
 local render = otherTab:AddSwitch("EZPV's Disable Rendering", function(bool)
     getgenv().settings.render = bool
@@ -611,6 +589,20 @@ local render = otherTab:AddSwitch("EZPV's Anonymous Mode", function(x)
     saveSettings()
 end)
 
+otherTab:AddLabel('EZPVs booth pos:')
+local boothDropdown = otherTab:AddDropdown({"Front", "Left", "Right", "Behind"}, false, function(t)
+    if settingsLock then return end
+    if t == "Front" then
+        getgenv().settings.boothPosition = 3
+    elseif t == "Left" then
+        getgenv().settings.boothPosition = -6
+    elseif t == "Right" then
+        getgenv().settings.boothPosition = 6
+    else
+        getgenv().settings.boothPosition = -5.5
+    end
+    saveSettings()
+end)
 boothTab:Show()
 library:FormatWindows()
 settingsLock = false
