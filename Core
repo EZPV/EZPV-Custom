@@ -543,6 +543,26 @@ danceDropdown:Add("Disabled")
 danceDropdown:Add("Monkey")
 danceDropdown:Add("Side to side")
 danceDropdown:Add("Sidekicks - George Ezra")
+
+otherTab:AddLabel('EZPVs Booth POS:')
+local boothDropdown = otherTab:AddDropdown("[ ".. getgenv().settings.boothPosition.. " ]", function(t)
+    if settingsLock then return end
+    if t == "Front" then
+        getgenv().settings.boothPosition = 3
+    elseif t == "Left" then
+        getgenv().settings.boothPosition = -6
+    elseif t == "Right" then
+        getgenv().settings.boothPosition = 6
+    else
+        getgenv().settings.boothPosition = -5.5
+    end
+    saveSettings()
+end)
+boothDropdown:Add("Front")
+boothDropdown:Add("Left")
+boothDropdown:Add("Right")
+boothDropdown:Add("Behind")
+
 --render settings
 local render = otherTab:AddSwitch("EZPV's Disable Rendering", function(bool)
     getgenv().settings.render = bool
@@ -587,25 +607,6 @@ local render = otherTab:AddSwitch("EZPV's Anonymous Mode", function(x)
     getgenv().settings.anonymous = x
     saveSettings()
 end)
-
-otherTab:AddLabel('EZPVs Booth POS:')
-local boothDropdown = otherTab:AddDropdown("[ ".. getgenv().settings.boothPosition.. " ]", function(t)
-    if settingsLock then return end
-    if t == "Front" then
-        getgenv().settings.boothPosition = 3
-    elseif t == "Left" then
-        getgenv().settings.boothPosition = -6
-    elseif t == "Right" then
-        getgenv().settings.boothPosition = 6
-    else
-        getgenv().settings.boothPosition = -5.5
-    end
-    saveSettings()
-end)
-boothDropdown:Add("Front")
-boothDropdown:Add("Left")
-boothDropdown:Add("Right")
-boothDropdown:Add("Behind")
 
 boothTab:Show()
 library:FormatWindows()
@@ -654,7 +655,7 @@ local function walkToBooth()
     task.wait(.1)
     if Players.LocalPlayer.Character.Humanoid:GetState() == Enum.HumanoidStateType.Seated then
         Players.LocalPlayer.Character.Humanoid.Jump = true
-    end
+    end)
     Players.LocalPlayer.Character.Humanoid:MoveTo(boothPos.Position)
     Players.LocalPlayer.Character.Humanoid.MoveToFinished:Connect(function(reached)
         atBooth = true
