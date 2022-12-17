@@ -66,8 +66,8 @@ if isfile("monkeynutsucks.txt") then
     end
 
 end
-local sNames = {"textUpdateToggle", "textUpdateDelay", "serverHopToggle", "serverHopDelay", "hexBox", "goalBox", "webhookToggle", "webhookBox", "danceChoice", "thanksMessage", "signToggle", "customBoothText", "signUpdateToggle", "signText", "signHexBox", "autoThanks", "autoBeg", "begMessage", "staffHop", "music", "begDelay", "fpsLimit", "anonymous", "render", "thanksDelay", "vcServer"}
-local sValues = {true, 30, true, 30, "#32CD32", 5, false, "", "Disabled", {"Thank you", "Thanks!", "ty :)", "tysm!"}, false, "GOAL: $C / $G", false, "your text here", "#ffffff", true, false, {"Please donate", "I'm so close to my goal!", "donate to me", "please"}, 300, 60, false, 3, false}
+local sNames = {"textUpdateToggle", "textUpdateDelay", "serverHopToggle", "serverHopDelay", "hexBox", "goalBox", "webhookToggle", "webhookBox", "danceChoice", "thanksMessage", "signToggle", "customBoothText", "signUpdateToggle", "signText", "signHexBox", "autoThanks", "autoBeg", "begMessage", "begDelay", "fpsLimit", "anonymous", "render", "thanksDelay", "vcServer", "boothPosition"}
+local sValues = {true, 30, true, 30, "#32CD32", 5, false, "", "Disabled", {"Thank you", "Thanks!", "ty :)", "tysm!"}, false, "GOAL: $C / $G", false, "your text here", "#ffffff", true, false, {"Please donate", "I'm so close to my goal!", "donate to me", "please"}, 300, 60, false, false, 5, false, 3}
 if #getgenv().settings ~= sNames then
     for i, v in ipairs(sNames) do
         if getgenv().settings[v] == nil then
@@ -171,7 +171,7 @@ local function update()
         local myBooth = Players.LocalPlayer.PlayerGui.MapUIContainer.MapUI.BoothUI:FindFirstChild(tostring("BoothUI".. unclaimed[1]))
         if myBooth.Sign.TextLabel.Text ~= boothText then
             if string.find(myBooth.Sign.TextLabel.Text, "# #") or string.find(myBooth.Sign.TextLabel.Text, "##") then
-                require(game.ReplicatedStorage.Remotes).Event("SetBoothText"):FireServer(".gg/ EZPV", "booth")
+                require(game.ReplicatedStorage.Remotes).Event("SetBoothText"):FireServer(" ", "booth")
                 task.wait(3)
             end
             require(game.ReplicatedStorage.Remotes).Event("SetBoothText"):FireServer(boothText, "booth")
@@ -187,7 +187,7 @@ local function update()
 
         if currentSign ~= signText then
             if string.find(currentSign, "# #") or string.find(currentSign, "##") then
-                require(game.ReplicatedStorage.Remotes).Event("SetBoothText"):FireServer(".gg/ EZPV", "sign")
+                require(game.ReplicatedStorage.Remotes).Event("SetBoothText"):FireServer(" ", "sign")
                 task.wait(3)
             end
             require(game.ReplicatedStorage.Remotes).Event("SetBoothText"):FireServer(signText, "sign")
@@ -588,6 +588,21 @@ local render = otherTab:AddSwitch("EZPV's Anonymous Mode", function(x)
     saveSettings()
 end)
 
+otherTab:AddLabel('EZPVs Booth POS:')
+local boothDropdown = otherTab:AddDropdown("Standing Position", {"Front", "Left", "Right", "Behind"}, false, function(t)
+    if settingsLock then return end
+    if t == "Front" then
+        getgenv().settings.boothPosition = 3
+    elseif t == "Left" then
+        getgenv().settings.boothPosition = -6
+    elseif t == "Right" then
+        getgenv().settings.boothPosition = 6
+    else
+        getgenv().settings.boothPosition = -5.5
+    end
+    saveSettings()
+end)
+
 boothTab:Show()
 library:FormatWindows()
 settingsLock = false
@@ -605,11 +620,6 @@ if not pcall(findUnclaimed) then
 end
 local claimCount = #unclaimed
 --Walks to booth
-game:GetService('VirtualInputManager'):SendKeyEvent(true, "LeftShift", false, game)
-local Controls = require(Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule")):GetControls()
-Controls:Disable()
-Players.LocalPlayer.Character.Humanoid:MoveTo(Vector3.new(booths[tostring(unclaimed[1])]:match("(.+), (.+), (.+)")))
-local atBooth = false
 local function noclip()
     for i,v in pairs(Players.LocalPlayer.Character:GetDescendants()) do
         if v:IsA("BasePart") then
@@ -618,16 +628,35 @@ local function noclip()
     end
 end
 local noclipper = game:GetService("RunService").Stepped:Connect(noclip)
-Players.LocalPlayer.Character.Humanoid.MoveToFinished:Connect(function(reached)
-    atBooth = true
-end)
-while not atBooth do
-    task.wait(.1)
-    if Players.LocalPlayer.Character.Humanoid:GetState() == Enum.HumanoidStateType.Seated then
-        Players.LocalPlayer.Character.Humanoid.Jump = true
+local function walkToBooth()
+    local theCframe
+    if string.find(tostring(getgenv().settings.boothPosition), "6") then
+        theCframe = CFrame.new(getgenv().settings.boothPosition, 0, 0)
+    else 
+        theCframe = CFrame.new(0, 0, getgenv().settings.boothPosition)
     end
+    local boothPos
+    for i,v in ipairs(game:GetService("Workspace").BoothInteractions:GetChildren()) do
+        if v:GetAttribute("BoothSlot") == unclaimed[1] then
+            boothPos = v.CFrame * theCframe
+            break
+        end
+    end
+    game:GetService('VirtualInputManager'):SendKeyEvent(true, "LeftShift", false, game)
+    local Controls = require(Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule")):GetControls()
+    Controls:Disable()
+    local atBooth = false
+    game:GetService("Workspace").Map.Main.Bench:Destroy()
+    Players.LocalPlayer.Character.Humanoid:MoveTo(boothPos.Position)
+    Players.LocalPlayer.Character.Humanoid.MoveToFinished:Connect(function(reached)
+        atBooth = true
+    end)
+    repeat task.wait() until atBooth
+    Controls:Enable()
+    game:GetService('VirtualInputManager'):SendKeyEvent(false, "LeftShift", false, game)
+    Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(Players.LocalPlayer.Character.HumanoidRootPart.Position, Vector3.new(40, 14, 101)))
 end
-game:GetService('VirtualInputManager'):SendKeyEvent(false, "LeftShift", false, game)
+walkToBooth()
 --Claim booth function
 local function boothclaim()
     require(game.ReplicatedStorage.Remotes).Event("ClaimBooth"):InvokeServer(unclaimed[1])
