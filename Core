@@ -605,7 +605,7 @@ if not pcall(findUnclaimed) then
 end
 local claimCount = #unclaimed
 --Walks to booth
-game:GetService('VirtualInputManager'):SendKeyEvent(true, "LeftShift", false, game)
+game:GetService('VirtualInputManager'):SendKeyEvent(true, "LeftControl", false, game)
 local Controls = require(Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule")):GetControls()
 Controls:Disable()
 Players.LocalPlayer.Character.Humanoid:MoveTo(Vector3.new(booths[tostring(unclaimed[1])]:match("(.+), (.+), (.+)")))
@@ -627,7 +627,7 @@ while not atBooth do
         Players.LocalPlayer.Character.Humanoid.Jump = true
     end
 end
-game:GetService('VirtualInputManager'):SendKeyEvent(false, "LeftShift", false, game)
+game:GetService('VirtualInputManager'):SendKeyEvent(false, "LeftControl", false, game)
 --Claim booth function
 local function boothclaim()
     require(game.ReplicatedStorage.Remotes).Event("ClaimBooth"):InvokeServer(unclaimed[1])
