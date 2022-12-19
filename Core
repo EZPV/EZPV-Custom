@@ -593,7 +593,7 @@ library:FormatWindows()
 settingsLock = false
 --custom wait and pull out invis 
 task.wait(5)
-Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):EquipTool(Players.LocalPlayer.Backpack:FindFirstChild("CloakDevice"))
+Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):EquipTool(Players.LocalPlayer.Backpack:FindFirstChild("CloakingDevice"))
 
 --Finds unclaimed booths
 local function findUnclaimed()
