@@ -591,6 +591,11 @@ end)
 boothTab:Show()
 library:FormatWindows()
 settingsLock = false
+--custom wait and pull out invis 
+task.wait(5)
+local function Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):EquipTool(Players.LocalPlayer.Backpack:FindFirstChild("CloakDevice"))
+game:GetService('VirtualInputManager'):SendKeyEvent(true, "MouseButton1Click", false, game)
+game:GetService('VirtualInputManager'):SendKeyEvent(false, "MouseButton1Click", false, game)
 
 --Finds unclaimed booths
 local function findUnclaimed()
