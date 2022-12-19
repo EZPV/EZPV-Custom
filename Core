@@ -659,9 +659,13 @@ require(game.ReplicatedStorage.Remotes).Event("RefreshItems"):InvokeServer()
 task.wait(.25)
 Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(Players.LocalPlayer.Character.HumanoidRootPart.Position, Vector3.new(40, 14, 101)))
 require(game.ReplicatedStorage.Remotes).Event("RefreshItems"):InvokeServer()
-if getgenv().settings.danceChoice == "Monkey" then
+task.wait(.3)
+mouse1click()
+task.wait(.2)
+Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):UnequipTools(Players.LocalPlayer.Backpack:FindFirstChild("CloakingDevice"))
+if getgenv().settings.danceChoice == "1" then
     task.wait(1)
-    Players:Chat("/e Monkey")
+    Players:Chat("/e ")
 end
 
 if getgenv().settings.autoBeg then
