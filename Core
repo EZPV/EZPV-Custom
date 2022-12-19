@@ -31,7 +31,7 @@ else
     Players.LocalPlayer.Idled:Connect(function()
         local VirtualUser = game:GetService("VirtualUser")
         VirtualUser:CaptureController()
-        VirtualUser:ClickButton2(Vector2.new())
+        VirtualUser:Button2(Vector2.new())
     end)
 end
 
@@ -596,7 +596,8 @@ task.wait(5)
 Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):EquipTool(Players.LocalPlayer.Backpack:FindFirstChild("CloakingDevice"))
 local VirtualUser = game:GetService("VirtualUser")
 VirtualUser:CaptureController()
-VirtualUser:ClickButton1(Vector2.new())
+    VirtualUser:ClickButton1(Vector2.new())
+end    
 
 --Finds unclaimed booths
 local function findUnclaimed()
