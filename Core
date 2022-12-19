@@ -594,8 +594,7 @@ settingsLock = false
 --custom wait and pull out invis 
 task.wait(5)
 Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):EquipTool(Players.LocalPlayer.Backpack:FindFirstChild("CloakingDevice"))
-VirtualUser:CaptureController()
-VirtualUser:ClickButton1(position: Vector2, camera: CFrame): void
+VirtualUser:ClickButton1(Vector2.new())
 
 --Finds unclaimed booths
 local function findUnclaimed()
