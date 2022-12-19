@@ -34,7 +34,6 @@ else
         VirtualUser:Button2(Vector2.new())
     end)
 end
-
 --Variables
 local unclaimed = {}
 local counter = 0
@@ -594,7 +593,9 @@ settingsLock = false
 --custom wait and pull out invis 
 task.wait(3)
 Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):EquipTool(Players.LocalPlayer.Backpack:FindFirstChild("CloakingDevice"))
+task.wait(.1)
 mouse1click()
+task.wait(1)
 
 --Finds unclaimed booths
 local function findUnclaimed()
